@@ -80,6 +80,7 @@ class db {
 db.load();
 
 const options = {
+  prefix: '!',
   token: process.env.token, // token reaveal
   logs: {
     modlogs: '966028505458556968'
@@ -177,13 +178,16 @@ client.on('messageCreate', async (message) => {
     }
   }
   if (command === '!queue') {
-    if (!options.team.includes(message.author.id)) {
-      await message.channel.send('You have to be in the team');
-    }
+   
     // the queue system
     // BOT NAME (PREFIX) - INVITE (NO PERMS) - INVITE (8 PERMS)
     // if its apprvoed dont show it on the list
-
+    if (!options.team.includes(message.author.id)) {
+      await message.channel.send('You have to be in the team');
+      
+      return;
+    }
+    
     const embed = new MessageEmbed().setTitle('***Queue***').setDescription(
       Object.values(DB)
         .filter((bot) => !bot.approved)
@@ -198,7 +202,11 @@ client.on('messageCreate', async (message) => {
         .join('\n\n')
     );
 
-    await message.channel.send({ embeds: [embed] });
+      if (options.team.includes(message.author.id)) {
+        await message.channel.send({ embeds: [embed] });
+        
+        return;
+      }
   }
 
   if (command === '!approve') {

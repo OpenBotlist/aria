@@ -88,7 +88,8 @@ const options = {
   k: {
     k: 'k' // k.
   },
-  team: ['396571938081865741', '544676649510371328']
+  team: ['396571938081865741', '544676649510371328'],
+  bottumrev:["928624781731983380"]
 };
 
 client.on('messageCreate', async (message) => {
@@ -208,8 +209,13 @@ client.on('messageCreate', async (message) => {
         return;
       }
   }
-
   if (command === '!approve') {
+      if (!options.team.includes(message.author.id) && !options.bottumrev.includes(message.author.id)) {
+      await message.channel.send('You have to be in the team');
+      return;
+    }
+     if (options.team.includes(message.author.id) && options.bottumrev.includes(message.author.id)) {
+    
     const id = args[0];
 
     if (id === undefined) {
@@ -271,8 +277,13 @@ client.on('messageCreate', async (message) => {
     // make the approved option true on db;
     bot.approved = true;
   }
-
+  }
   if (command === '!decline') {
+      if (!options.team.includes(message.author.id) && !options.bottumrev.includes(message.author.id)) {
+      await message.channel.send('You have to be in the team');
+      return;
+    }
+     if (options.team.includes(message.author.id) && options.bottumrev.includes(message.author.id)) {
     const id = args[0];
     const reason = args.slice(1).join(' ');
 
@@ -337,6 +348,7 @@ client.on('messageCreate', async (message) => {
 
     db.delete(id);
   }
+  } 
 });
 
 client.login(options.token);

@@ -4,7 +4,7 @@
   "description": "The official bot for the OpenBotList",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node ."
   },
   "dependencies": {
     "discord.js": "^13.6.0"

@@ -93,10 +93,8 @@ const options = {
 client.on('messageCreate', async (message) => {
   const args = message.content.trim().split(/\s+/);
   const command = args.shift().toLowerCase();
-
   if (command === '!add-bot') {
-    const ADD_BOT_CHANNEL = '966397896176058428'; // id of the add-new bottum channel
-    if (message.channel.id !== ADD_BOT_CHANNEL) {
+    if (message.channel.id !== '966397896176058428') {
       await message.channel.send(
         'oh god ur cringe use this command at <#966397896176058428> smh ppl these days'
       );
@@ -104,13 +102,13 @@ client.on('messageCreate', async (message) => {
       return;
     }
 
-    if (message.channel.id === ADD_BOT_CHANNEL) {
+    if (message.channel.id === '966397896176058428') {
       // !add-bot <ID> <PREFIX> <SHORT DESC>
 
       const id = args[0];
 
       if (id === undefined) {
-        await message.channel.send('The ID of the Discord bot is required.');
+        await message.channel.send("The ID of the Discord bot is required. \nFormat: \`!add-bot <bot-id> <bot-prefix> <description>\`");
 
         return;
       }
@@ -175,6 +173,10 @@ client.on('messageCreate', async (message) => {
       await message.author.send('Your bot has been added to the queue!'); //send it to PMs
       await message.delete(); // this should delete the command message (!add-bot)
     }
+  }
+  if (command === '!help') {
+    message.channel.send("Commands: \nAdd bot: \`!add-bot <bot-id> <bot-prefix> <description>\`")
+    return;
   }
   if (command === '!queue') {
     if (!options.team.includes(message.author.id)) {

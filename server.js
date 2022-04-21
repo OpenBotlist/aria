@@ -179,6 +179,8 @@ client.on('messageCreate', async (message) => {
   if (command === '!queue') {
     if (!options.team.includes(message.author.id)) {
       await message.channel.send('You have to be in the team');
+      
+      return;
     }
     // the queue system
     // BOT NAME (PREFIX) - INVITE (NO PERMS) - INVITE (8 PERMS)
